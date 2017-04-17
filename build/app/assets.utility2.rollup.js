@@ -765,11 +765,11 @@ local.templateApidocHtml = '\
                         return;
                     }
                     Object.keys(moduleDict[prefix]).forEach(function (key) {
-                        if (!(/^\w[\w\-.]*?$/).test(key) || !moduleDict[prefix][key]) {
-                            return;
-                        }
-                        // bug-workaround - buggy electron accessors
+                        // bug-workaround - buggy electron getter / setter
                         try {
+                            if (!(/^\w[\w\-.]*?$/).test(key) || !moduleDict[prefix][key]) {
+                                return;
+                            }
                             tmp = element === 'prototype'
                                 ? {
                                     module: moduleDict[prefix][key].prototype,
@@ -792,6 +792,7 @@ local.templateApidocHtml = '\
                             ].some(function (dict) {
                                 return typeof dict === 'function' ||
                                     Object.keys(dict || {}).some(function (key) {
+                                        // bug-workaround - buggy electron getter / setter
                                         try {
                                             return typeof dict[key] === 'function';
                                         } catch (ignore) {
@@ -9945,7 +9946,7 @@ the greatest app in the world!\n\
 #### todo\n\
 - none\n\
 \n\
-#### changes for v0.0.1\n\
+#### changelog for v0.0.1\n\
 - none\n\
 \n\
 #### this package requires\n\
@@ -10022,10 +10023,10 @@ the greatest app in the world!\n\
     "scripts": {\n\
         "build-ci": "utility2 shReadmeTest build_ci.sh",\n\
         "env": "env",\n\
-        "heroku-postbuild": "(set -e; npm install \\\"kaizhu256/node-utility2#alpha\\\"; utility2 shDeployHeroku)",\n\
-        "postinstall": "if [ -f npm_scripts.sh ]; then ./npm_scripts.sh postinstall; fi",\n\
-        "start": "(set -e; export PORT=${PORT:-8080}; utility2 start test.js)",\n\
-        "test": "(set -e; export PORT=$(utility2 shServerPortRandom); utility2 test test.js)"\n\
+        "heroku-postbuild": "npm install \\\"kaizhu256/node-utility2#alpha\\\" && utility2 shDeployHeroku",\n\
+        "postinstall": "[ ! -f npm_scripts.sh ] || ./npm_scripts.sh postinstall",\n\
+        "start": "PORT=${PORT:-8080} utility2 start test.js",\n\
+        "test": "PORT=$(utility2 shServerPortRandom) utility2 test test.js"\n\
     },\n\
     "version": "0.0.1"\n\
 }\n\
@@ -11653,7 +11654,6 @@ local.assetsDict['/favicon.ico'] = '';
                     local.processSpawnWithTimeout('electron', [
                         __filename,
                         'browserTest',
-                        '--disable-overlay-scrollbar',
                         '--enable-logging'
                     ], {
                         env: options,
@@ -12104,7 +12104,7 @@ return Utf8ArrayToStr(bff);
                 // try to recover from error
                 setTimeout(onError, error && local.timeoutDefault);
             };
-            // try to salvage uncaughtException
+            // try to recover from uncaughtException
             process.on('uncaughtException', onError2);
             onParallel = local.utility2.onParallel(onError2);
             onParallel.counter += 1;
@@ -12437,8 +12437,32 @@ return Utf8ArrayToStr(bff);
                             offset: 100,
                             sort_by: 'asc'
                         }, {
+                            offset: 200,
+                            sort_by: 'asc'
+                        }, {
+                            offset: 300,
+                            sort_by: 'asc'
+                        }, {
+                            offset: 400,
+                            sort_by: 'asc'
+                        }, {
                             offset: Math.floor(Math.random() * count) - 100,
                             sort_by: 'asc'
+                        }, {
+                            offset: Math.floor(Math.random() * count) - 100,
+                            sort_by: 'asc'
+                        }, {
+                            offset: 0,
+                            sort_by: 'desc'
+                        }, {
+                            offset: count - 500,
+                            sort_by: 'desc'
+                        }, {
+                            offset: count - 400,
+                            sort_by: 'desc'
+                        }, {
+                            offset: count - 300,
+                            sort_by: 'desc'
                         }, {
                             offset: count - 200,
                             sort_by: 'desc'
