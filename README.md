@@ -1,4 +1,7 @@
-# api documentation for  [homebridge-gpio (v0.0.4)](https://github.com/jamesblanksby/homebridge-gpio#readme)  [![npm package](https://img.shields.io/npm/v/npmdoc-homebridge-gpio.svg?style=flat-square)](https://www.npmjs.org/package/npmdoc-homebridge-gpio) [![travis-ci.org build-status](https://api.travis-ci.org/npmdoc/node-npmdoc-homebridge-gpio.svg)](https://travis-ci.org/npmdoc/node-npmdoc-homebridge-gpio)
+# npmdoc-homebridge-gpio
+
+#### basic api documentation for  [homebridge-gpio (v0.0.4)](https://github.com/jamesblanksby/homebridge-gpio#readme)  [![npm package](https://img.shields.io/npm/v/npmdoc-homebridge-gpio.svg?style=flat-square)](https://www.npmjs.org/package/npmdoc-homebridge-gpio) [![travis-ci.org build-status](https://api.travis-ci.org/npmdoc/node-npmdoc-homebridge-gpio.svg)](https://travis-ci.org/npmdoc/node-npmdoc-homebridge-gpio)
+
 #### Raspberry Pi GPIO plugin for Homebridge: https://github.com/nfarina/homebridge
 
 [![NPM](https://nodei.co/npm/homebridge-gpio.png?downloads=true&downloadRank=true&stars=true)](https://www.npmjs.com/package/homebridge-gpio)
@@ -53,7 +56,8 @@
         "url": "git://github.com/jamesblanksby/homebridge-gpio.git"
     },
     "scripts": {},
-    "version": "0.0.4"
+    "version": "0.0.4",
+    "bin": {}
 }
 ```
 
